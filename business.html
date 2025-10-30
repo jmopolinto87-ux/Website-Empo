@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maison D’or - Timeless Elegance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Cinzel', serif;
+            line-height: 1.6;
+            color: #333;
+            background: #ffffff; /* Entire page background black */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: black; /* Black background for overlay effect */
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: background 0.3s ease; /* Smooth transition */
+        }
+
+        .header.scrolled {
+            background: rgba(0, 0, 0, 0.95); /* Black background on scroll */
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #D4AF37; /* Gold for visibility on transparent/video */
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        .header.scrolled .logo-text {
+            color: #FFFFFF; /* White on black background */
+        }
+
+        .logo img {
+            height: 54px;
+            width: auto;
+            transition: filter 0.3s ease;
+        }
+
+        .header.scrolled .logo img {
+            filter: brightness(1.2);
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+        }
+
+        .nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #FFFFFF; /* White for visibility on transparent/video */
+            font-weight: 400;
+            font-family: 'Cinzel', serif;
+            transition: color 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: #D4AF37;
+        }
+
+        .header.scrolled .nav a {
+            color: #FFFFFF;
+        }
+
+        .header.scrolled .nav a:hover {
+            color: #D4AF37;
+        }
+
+        /* Right Header Section (Social, Search, Location, Cart, Login) */
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .social-icons, .utility-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icons a, .utility-icons a {
+            color: #FFFFFF; /* White for visibility on transparent/video */
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover, .utility-icons a:hover {
+            color: #D4AF37;
+        }
+
+        .header.scrolled .social-icons a,
+        .header.scrolled .utility-icons a {
+            color: #FFFFFF;
+        }
+
+        .header.scrolled .social-icons a:hover,
+        .header.scrolled .utility-icons a:hover {
+            color: #D4AF37;
+        }
+
+        /* Hamburger Menu (Mobile Only) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #FFFFFF; /* White for visibility on transparent/video */
+            transition: background 0.3s ease;
+        }
+
+        .header.scrolled .hamburger span {
+            background: #FFFFFF;
+        }
+
+        /* Hero Video */
+        .hero {
+            position: relative;
+            height: 90vh; /* Reduced from 100vh to 90vh (10% reduction) */
+            overflow: hidden;
+        }
+
+        .hero video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #FFFFFF;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-overlay h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        /* Section Separator (Gold Line with Decorative Emblem) */
+        .separator {
+            text-align: center;
+            margin: 0.5rem 0; /* Reduced from 2rem to 1rem for tighter spacing */
+            position: relative;
+        }
+
+        .separator::before,
+        .separator::after {
+            content: '';
+            display: inline-block;
+            width: 200px;
+            height: 1px;
+            background: #000000;
+            vertical-align: middle;
+            margin: 0 1rem;
+        }
+
+        .separator i {
+            color: #000000;
+            font-size: 1.5rem;
+            vertical-align: middle;
+            margin: 0 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Products Section */
+        .products {
+            padding: 5rem 0;
+            background: #FFFFFF;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            justify-items: center;
+        }
+
+        .product-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        .footer {
+            background: #000000;
+            color: #FFFFFF;
+            padding: 2rem 0;
+        }
+
+        .footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: #FFFFFF;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-family: 'Cinzel', serif;
+        }
+
+        .footer-links a:hover {
+            color: #D4AF37;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            color: #FFFFFF;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: #D4AF37;
+        }
+
+        /* Mobile Menu Toggle */
+        .nav-mobile {
+            display: none;
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.9);
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            padding: 1rem;
+            gap: 1rem;
+        }
+
+        .nav-mobile.active {
+            display: flex;
+        }
+
+        .nav-mobile a {
+            color: #FFFFFF;
+            font-size: 1.1rem;
+            padding: 0.5rem;
+        }
+
+        /* Added showcase styles (do not remove) */
+        #collections-showcase { padding: 48px 0; background: #fff; }
+        #collections-showcase h2 { font-family: 'Cinzel', serif; text-align:center; font-size:28px; margin-bottom:18px; color:#111; }
+        .showcase-wrap { position: relative; max-width:1200px; margin:0 auto; padding: 0 64px; }
+        .showcase-viewport { overflow:hidden; }
+        .showcase-track { display:flex; gap:14px; align-items:stretch; will-change:transform; }
+        .showcase-item {
+          flex: 560px;
+          min-width: 300px;
+          height: 300px;
+          border-radius:10px;
+          background-image: url('pr6.png');
+          background-size: cover;
+          background-position: center;
+          display:flex;
+          align-items:flex-end;
+          padding:14px;
+          color:#fff;
+          font-weight:700;
+          box-shadow: 0 8px 20px rgba(0,0,0,.12);
+          opacity: 1;
+          transition: opacity .28s ease, transform .28s ease, box-shadow .28s ease;
+          cursor: pointer;
+        }
+        .showcase-item .label { background: rgba(0,0,0,.35); padding:6px 10px; border-radius:6px; backdrop-filter: blur(4px); }
+        .showcase-item:hover,
+        .showcase-item:focus,
+        .showcase-item.active { opacity: 1; transform: translateY(-3px); box-shadow:0 14px 36px rgba(0,0,0,.22); }
+
+        .showcase-nav {
+          position:absolute;
+          top:50%;
+          transform:translateY(-50%);
+          width:48px;
+          height:48px;
+          border-radius:50%;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          background: rgba(0,0,0,.45);
+          color:#fff;
+          border: none;
+          z-index:20;
+          cursor:pointer;
+          backdrop-filter: blur(4px);
+          transition: background .2s ease, transform .12s ease;
+        }
+        .showcase-nav:hover { transform: translateY(-50%) scale(1.05); background: rgba(0,0,0,.6); }
+        .showcase-nav.left { left:9px; }
+        .showcase-nav.right { right:9px; }
+
+        @media (max-width:1100px){ .showcase-item{flex:0 0 200px;height:200px} .showcase-wrap{padding:0 48px} }
+        @media (max-width:820px){ .showcase-item{flex:0 0 160px;height:160px} .showcase-wrap{padding:0 32px} .showcase-nav{width:40px;height:40px} }
+        @media (max-width:520px){ .showcase-item{flex:0 0 140px;height:140px} .showcase-wrap{padding:0 18px} }
+
+        /* Ensure product images use pr6.png as requested */
+        #products .product-item img { width:100%; height:350px; object-fit:cover; border-radius:10px; transition: transform .3s ease, opacity .25s ease; }
+        #products .product-item img:hover { transform: scale(1.04); opacity:1; }
+        #products .product-item img { opacity: 1; }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header .container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .logo-text {
+                font-size: 1.5rem;
+            }
+
+            .logo img {
+                height: 40px;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .nav-mobile {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .header-right {
+                gap: 0.5rem;
+            }
+
+            .social-icons, .utility-icons {
+                gap: 0.5rem;
+            }
+
+            .social-icons a, .utility-icons a {
+                font-size: 1rem;
+            }
+
+            .hero-overlay h1 {
+                font-size: 2rem;
+            }
+
+            .separator {
+                margin: 0.75rem 0; /* Tighter on mobile, reduced from 1.5rem */
+            }
+
+            .separator::before,
+            .separator::after {
+                width: 50px;
+            }
+
+            .separator i {
+                font-size: 1.2rem;
+            }
+
+            .footer .container {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+
+        /* Updated About Section Styles with Minimal Margins and Padding, plus added top padding */
+        .about-section {
+            text-align: center;
+            padding: 50px 20px 10px; /* Added top padding to 50px to space from video */
+            background-color: #fff;
+        }
+
+        .about-section h2 {
+            font-family: "Cinzel", serif;
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 5px; /* Reduced margin */
+        }
+
+        .about-section hr {
+            width: 100%;
+            max-width: 700px;
+            border: none;
+            border-top: 2px solid #000000;
+            margin: 5px auto; /* Reduced margin */
+        }
+
+        .about-section p {
+            font-family: "Cinzel", serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            max-width: 700px;
+            margin: 0 auto; /* Kept minimal, no additional margin */
+        }
+
+         .collections {
+      display: flex;
+      justify-content: center;
+      gap: 30px; /* space between blocks */
+      margin: 50px auto;
+      max-width: 1100px;
+    }
+
+    .collection-item {
+      width: 46%;
+    }
+
+    .collection-item img {
+      width: 100%;
+      border-radius: 0; /* sharp corners */
+      margin-bottom: 15px; /* space below image */
+    }
+
+    .collection-title {
+      font-size: 22px;
+      font-weight: bold;
+      color: #000000;
+      letter-spacing: 0.5px;
+      
+    }
+
+    .collection-desc {
+      margin-top: 8px;
+      font-size: 15px;
+      color: #000000; /* softer white for description */
+      line-height: 1.5;
+    }
+
+    .discover-link {
+      margin-top: 12px;
+      display: inline-block;
+      font-size: 14px;
+      font-weight: bold;
+      color: #000000;
+      text-decoration: none;
+      letter-spacing: 1px;
+      
+    }
+
+    .discover-link:hover {
+      text-decoration: underline;
+    }
+    </style>
+
+    <!-- Loader styles (added) -->
+    <style>
+        /* Loader updated: photo (logo1.jpg) and 3s duration */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #000000 0%, #000000 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+        }
+        .diamond-container {
+            position: relative;
+            width: 80%;
+            max-width: 700px;
+            height: 55vh;
+            max-height: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        /* use a photographic image instead of the logo/shape */
+        .diamond {
+            width: 110px;
+            height: 100px;
+            background-image: url('load.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            animation: premiumFloat 3s ease-in-out infinite;
+            position: relative;
+        }
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, #D4AF37, #D4AF37, transparent);
+            border-radius: 100%;
+            animation: premiumSparkle 2s ease-in-out infinite;
+            box-shadow: 0 0 8px #D4AF37;
+            pointer-events: none;
+        }
+        /* keep sparkle placement but they appear over the photo */
+       .sparkle:nth-child(1)  { top: 5%; left: 10%; animation-delay: 0s; }
+.sparkle:nth-child(2)  { top: 10%; right: 20%; animation-delay: 0.3s; }
+.sparkle:nth-child(3)  { top: 25%; left: 40%; animation-delay: 0.6s; }
+.sparkle:nth-child(4)  { top: 35%; right: 5%; animation-delay: 0.9s; }
+.sparkle:nth-child(5)  { top: 50%; left: 25%; animation-delay: 1.2s; }
+.sparkle:nth-child(6)  { bottom: 45%; right: 35%; animation-delay: 1.5s; }
+.sparkle:nth-child(7)  { bottom: 30%; left: 5%; animation-delay: 1.8s; }
+.sparkle:nth-child(8)  { bottom: 20%; right: 15%; animation-delay: 2.1s; }
+.sparkle:nth-child(9)  { bottom: 10%; left: 45%; animation-delay: 2.4s; }
+.sparkle:nth-child(10) { bottom: 5%; right: 40%; animation-delay: 2.7s; }
+        
+
+        @keyframes premiumFloat {
+            0%   { transform: translateY(0) scale(1); filter: brightness(1); }
+            50%  { transform: translateY(-8px) scale(1.01); filter: brightness(1.02); }
+            100% { transform: translateY(0) scale(1); filter: brightness(1); }
+        }
+        @keyframes premiumSparkle {
+            0%,100% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50%     { opacity: 1; transform: scale(1.6) rotate(180deg); }
+        }
+        /* Hide loader after 3 seconds */
+        .hidden { display: none; }
+        @media (max-width: 768px) {
+            .diamond-container { width: 90%; height: 45vh; }
+        }
+        @media (max-width: 480px) {
+            .diamond-container { width: 95%; height: 36vh; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loader (photo, 3s duration) -->
+    <div id="loader" class="loader" aria-hidden="false">
+        <div class="diamond-container" role="img" aria-label="Loading image">
+            <div class="diamond" aria-hidden="true"></div>
+            <div class="sparkle" aria-hidden="true"></div>
+            <div class="sparkle" aria-hidden="true"></div>
+            <div class="sparkle" aria-hidden="true"></div>
+            <div class="sparkle" aria-hidden="true"></div>
+            <div class="sparkle" aria-hidden="true"></div>
+            <div class="sparkle" aria-hidden="true"></div>
+            <div class="sparkle" aria-hidden="true"></div>
+            <div class="sparkle" aria-hidden="true"></div>
+            <div class="sparkle" aria-hidden="true"></div>
+            <div class="sparkle" aria-hidden="true"></div>
+            <div class="sparkle" aria-hidden="true"></div>
+            <div class="sparkle" aria-hidden="true"></div>
+            <div class="sparkle" aria-hidden="true"></div>
+        </div>
+    </div>
+
+    <script>
+        (function(){
+            const loader = document.getElementById('loader');
+            if (!loader) return;
+
+            // scatter existing sparkle elements across the entire viewport
+            const sparkles = Array.from(loader.querySelectorAll('.sparkle'));
+            function placeSparkles() {
+                sparkles.forEach(s => {
+                    const size = 4 + Math.random() * 8; // varied size
+                    s.style.position = 'fixed';
+                    s.style.top = (Math.random() * 100).toFixed(2) + '%';
+                    s.style.left = (Math.random() * 100).toFixed(2) + '%';
+                    s.style.width = size + 'px';
+                    s.style.height = size + 'px';
+                    s.style.margin = '0';
+                    s.style.pointerEvents = 'none';
+                    s.style.animationDelay = (Math.random() * 2.5).toFixed(2) + 's';
+                    s.style.opacity = (0.6 + Math.random() * 0.4).toFixed(2);
+                });
+            }
+
+            // initial placement
+            placeSparkles();
+
+            // gently reshuffle sparkle positions while loader is visible for a lively effect
+            const shuffleInterval = setInterval(() => {
+                if (loader.classList.contains('hidden')) {
+                    clearInterval(shuffleInterval);
+                    return;
+                }
+                placeSparkles();
+            }, 1200);
+
+            // hide loader after 3s (as requested)
+            window.addEventListener('load', function() {
+                setTimeout(function() {
+                    loader.classList.add('hidden');
+                    loader.setAttribute('aria-hidden', 'true');
+                }, 3000); // 3 seconds
+            });
+        })();
+     </script>
+
+    <!-- Header with Logo and Navigation -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="logo">
+                <img src="logo1.png" alt="Maison D’or Logo">
+                <span class="logo-text">Maison D’or</span>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="jwelery.html">Home</a></li>
+                    <li><a href="business.html">Products</a></li>
+                    <li><a href="#appointment">Book an Appointment</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <nav class="nav-mobile" id="navMobile">
+                    <a href="jwelery.html">Home</a>
+                    <a href="business.html">Products</a>
+                    <a href="#appointment">Book an Appointment</a>
+                </nav>
+                <div class="social-icons">
+                    <a href="https://www.tiktok.com/@meongliit01" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.facebook.com/Lipbiteee" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/meonglipbite" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                </div>
+                <div class="utility-icons">
+                    <a href="#" title="Search"><i class="fas fa-search"></i></a>
+                    <a href="#" title="Location"><i class="fas fa-map-marker-alt"></i></a>
+                    <a href="#" title="Login"><i class="fas fa-user"></i></a>
+                    <a href="#"><i class="fas fa-shopping-cart"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- (removed duplicate footer here so the real footer at the page bottom will render correctly) -->
+    <style>
+  :root{
+    --bg: #fff;
+    --muted: #777;
+    --accent: #111;
+    --card: #f6f4f2;
+    --gap: 28px;
+    --sidebar-w: 300px;
+    --radius: 8px;
+    --max-width: 1300px;
+    --shadow: 0 6px 24px rgba(0,0,0,0.08);
+    font-family:'Cinzel', serif;
+  }
+
+  *{box-sizing:border-box}
+  /* keep page centered and add top padding so content sits below the fixed header */
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--accent);
+    display:flex;
+    justify-content:center;
+    /* top padding equals header height so elements aren't blocked */
+    padding:84px 12px 48px;
+  }
+  .container{width:100%;max-width:var(--max-width);display:grid;grid-template-columns:var(--sidebar-w) 1fr;gap:var(--gap);align-items:start}
+  /* Sidebar */
+  .sidebar{padding:18px;border-right:1px solid #eee;position:sticky;top:18px;align-self:start;height:calc(100vh - 36px);overflow:auto}
+  .brand-path{font-size:13px; color:var(--muted); margin-bottom:18px}
+  h1{margin:18px 0 24px;font-size:18px;letter-spacing:1px}
+  .section{margin-bottom:22px}
+  .section h4{margin:0 0 10px;font-size:13px;letter-spacing:1px}
+  .radio, .chk {display:flex;align-items:center;gap:10px;margin:8px 0;font-size:14px;color:var(--muted)}
+  input[type="checkbox"], input[type="radio"]{width:16px;height:16px}
+  .collapse-toggle{display:flex;justify-content:space-between;align-items:center;cursor:pointer;padding:6px 0}
+  .small{font-size:13px;color:var(--muted)}
+  .apply-row{display:flex;gap:8px;margin-top:10px}
+  .btn{border:1px solid #ddd;padding:8px 12px;border-radius:6px;background:#fff;cursor:pointer}
+  .btn.primary{background:#111;color:#fff;border-color:#111}
+  /* Header / controls above grid */
+  .toolbar{display:flex;justify-content:space-between;align-items:center;padding:6px 2px}
+  .left-controls{display:flex;gap:12px;align-items:center}
+  .search{padding:8px 12px;border:1px solid #e6e6e6;border-radius:8px;width:260px}
+  .right-controls{display:flex;gap:12px;align-items:center}
+  .icon-btn{width:36px;height:36px;border-radius:8px;border:1px solid #eee;background:#fff;display:grid;place-items:center;cursor:pointer}
+  /* Grid */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;padding:14px 0}
+  .card{background:#fff;border-radius:10px;padding:14px;text-align:center;box-shadow:var(--shadow);border:1px solid #fafafa}
+  /* make hero-side mini cards indicate interactivity */
+  .card.hero-mini{cursor:pointer}
+  /* unified image box: fixed aspect ratio so every product image fills the placeholder */
+  .card .media{
+    background:linear-gradient(#faf6f3,#f9f7f5);
+    width:100%;
+    aspect-ratio: 4 / 3;      /* consistent thumbnail shape — change to 1/1 for square */
+    max-height:320px;        /* prevents extremely tall boxes */
+    border-radius:8px;
+    overflow:hidden;
+    display:block;
+  }
+  .card .media img{
+    width:100%;
+    height:100%;
+    object-fit:cover;        /* fills the box without letterboxing */
+    display:block;
+  }
+  .tag{position:absolute;left:10px;top:10px;background:#fff;padding:6px 8px;border-radius:4px;font-size:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+  .card h3{font-size:14px;margin:12px 0 6px;letter-spacing:0.6px}
+  .subtitle{font-size:13px;color:var(--muted);margin-bottom:8px}
+  .price{font-weight:700}
+  /* Large hero card (center area) */
+  .hero-grid{display:grid;grid-template-columns:0.8fr 360px;gap:18px;align-items:start}
+  .hero{
+    background:#f6f2ef;
+    border-radius:8px;
+    padding:0;                       /* allow video to reach edges */
+    display:flex;
+    align-items:stretch;
+    justify-content:center;
+    height:520px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    position:relative;
+  }
+  .hero video, .hero iframe, .hero img{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display:block;
+    border-radius: 8px;
+    padding-left: 10px;
+  }
+  .hero-title{text-align:center;font-weight:600;margin-top:18px;letter-spacing:2px}
+  /* responsive */
+  @media (max-width:1100px){
+    .container{grid-template-columns: 1fr}
+    .sidebar{position:relative;height:auto;border-right: none;border-bottom:1px solid #eee;padding-bottom:24px}
+    .hero-grid{grid-template-columns:1fr}
+  }
+  @media (max-width:860px){
+    .grid{grid-template-columns:repeat(2,1fr)}
+    .hero{height:380px}
+  }
+  @media (max-width:520px){
+    .grid{grid-template-columns:repeat(1,1fr)}
+    .search{width:140px}
+  }
+
+  /* modal */
+  .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);z-index:999}
+  .modal.open{display:flex}
+  .modal-card{width:min(880px,94%);background:#fff;border-radius:8px;padding:18px;display:grid;grid-template-columns:1fr 360px;gap:18px}
+  .modal img{width:100%;height:100%;object-fit:cover;border-radius:6px}
+  .modal .info h3{margin:0 0 8px}
+  .close-btn{position:absolute;right:16px;top:16px;background:#fff;border-radius:50%;width:36px;height:36px;border:0;cursor:pointer;box-shadow:var(--shadow)}
+  .empty-msg{padding:40px;text-align:center;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand-path">HOME / JEWELRY / ALL COLLECTIONS / Maison D'or</div>
+    <h1>Maison D'or — 141 Models</h1>
+
+    <div class="section">
+      <h4>SORT BY</h4>
+      <label class="radio"><input name="sort" type="radio" value="recommended" checked> Recommended</label>
+      <label class="radio"><input name="sort" type="radio" value="low"> Price Low to High</label>
+      <label class="radio"><input name="sort" type="radio" value="high"> Price High to Low</label>
+    </div>
+
+    <div class="section">
+      <h4>FILTER BY</h4>
+      <label class="chk"><input type="checkbox" data-filter="available"> Available Online</label>
+      <label class="chk"><input type="checkbox" data-filter="new"> New</label>
+    </div>
+
+    <div class="section">
+      <h4>Category</h4>
+      <label class="chk"><input type="checkbox" data-cat="Bracelets"> Bracelets</label>
+      <label class="chk"><input type="checkbox" data-cat="Earrings"> Earrings</label>
+      <label class="chk"><input type="checkbox" data-cat="Rings"> Rings</label>
+      <label class="chk"><input type="checkbox" data-cat="Necklaces"> Necklaces</label>
+    </div>
+
+    <div class="section">
+      <h4>Metal</h4>
+      <label class="chk"><input type="checkbox" data-metal="White gold"> White gold</label>
+      <label class="chk"><input type="checkbox" data-metal="Rose gold"> Rose gold</label>
+      <label class="chk"><input type="checkbox" data-metal="Yellow gold"> Yellow gold</label>
+      <label class="chk"><input type="checkbox" data-metal="Pearls"> Pearls</label>
+      <label class="chk"><input type="checkbox" data-metal="Diamonds"> Diamonds</label>
+    </div>
+
+    <div style="margin-top:20px" class="section">
+      <div class="small">Reset everything and show all</div>
+      <div class="apply-row">
+        <button id="resetBtn" class="btn">Reset</button>
+        <button id="applyBtn" class="btn primary">Apply</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <div class="toolbar">
+      <div class="left-controls">
+        <input id="searchBox" class="search" placeholder="Search products, e.g. 'bracelet'">
+        <div class="small">Showing <span id="count">0</span> results</div>
+      </div>
+      <div class="right-controls">
+        <div title="Toggle grid/list" class="icon-btn" id="toggleView">☷</div>
+        <div class="icon-btn" id="clearFilters" title="Clear filters">✖</div>
+      </div>
+    </div>
+
+    <!-- hero + small grid column -->
+    <div class="hero-grid" style="margin-bottom:18px">
+      <div class="hero" id="heroPanel">
+        <video id="heroVideo" src="vid2.mp4" controls loop playsinline muted style="width:100%;height:100%;object-fit:cover"></video>
+      </div>
+  <div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="card hero-mini" data-id="1" style="padding:8pxx">
+            <div class="media"><img src="rg1.jpg" alt="Bracelet"></div>
+            <h3>Love Bracelet, Medium</h3>
+            <div class="subtitle">Rose gold</div>
+            <div class="price">$6,630</div>
+          </div>
+          <div class="card hero-mini" data-id="2" style="padding:8px">
+            <div class="media"><img src="yg1.jpg" alt="Bracelet"></div>
+            <h3>Love Bracelet, Medium</h3>
+            <div class="subtitle">Yellow gold</div>
+            <div class="price">$6,630</div>
+          </div>
+          <!-- added products to fill the gap under the hero -->
+          <div class="card hero-mini" data-id="9" style="padding:8px">
+            <div class="media"><img src="18k.jpg" alt="Necklace"></div>
+            <h3>Timeless Necklace</h3>
+            <div class="subtitle">18K Gold</div>
+            <div class="price">$8,200</div>
+          </div>
+          <div class="card hero-mini" data-id="10" style="padding:8px">
+            <div class="media"><img src="de.jpg" alt="Earrings"></div>
+            <h3>Classic Earrings</h3>
+            <div class="subtitle">Diamond Studs</div>
+            <div class="price">$4,450</div>
+          </div>
+        </div>
+       </div>
+     </div>
+    <!-- products grid -->
+    <section id="productArea">
+      <div id="grid" class="grid"></div>
+      <div id="emptyState" class="empty-msg" style="display:none">No products match your filters.</div>
+    </section>
+  </main>
+
+</div>
+
+<!-- modal quick view -->
+<div id="modal" class="modal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <button class="close-btn" id="closeModal">✕</button>
+    <div style="min-height:320px">
+      <img id="modalImg" src="" alt="product large">
+    </div>
+    <div class="info" style="padding:8px">
+      <h3 id="modalTitle">Product</h3>
+      <div class="small" id="modalMeta">Stone, Metal</div>
+      <div style="margin:16px 0;font-weight:700;font-size:20px" id="modalPrice">$0</div>
+      <p style="color:var(--muted);margin-top:6px">Short description of the chosen model. You can add more details here about weight, sizes, or variations.</p>
+      <div style="margin-top:18px">
+        <button class="btn primary" id="buyBtn">Buy</button>
+        <button class="btn" id="favBtn">♡ Wishlist</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ====== DATA ======
+ Replace image paths here with your real images if you want.
+ The images referenced below match the uploaded images in this session
+ (paths like /mnt/data/...). If you're running locally and don't have
+ those paths, update them to filenames in the same folder as this HTML.
+*/
+const products = [
+  {id:5, title:"Love Bracelet, Paved", image:"bg1.jpg", category:"Bracelets", metal:"Yellow gold", type:"Rigid", price:36000, available:true, isNew:false},
+  {id:6, title:"Love Bracelet, Paved", image:"wg1.jpg", category:"Bracelets", metal:"White gold", type:"Rigid", price:38520, available:true, isNew:false},
+  {id:7, title:"Love Earrings, Multiwear", image:"eg1.jpg", category:"Earrings", metal:"Yellow gold", type:"N/A", price:5900, available:true, isNew:false},
+  {id:8, title:"Love Ring, Small Model", image:"wr2.jpg", category:"Rings", metal:"White gold", type:"Rigid", price:1520, available:true, isNew:false},
+  {id:9, title:"Elegance Pearl Necklace", image:"pn1.jpg", category:"Necklaces", metal:"Pearls", type:"Classic", price:8250, available:true, isNew:true},
+  {id:10, title:"Radiant Diamond Earrings", image:"de2.jpg", category:"Earrings", metal:"Diamonds", type:"Stud", price:15700, available:true, isNew:true},
+  {id:11, title:"Eternal Diamond Necklace", image:"de3.jpg", category:"Necklaces", metal:"Diamonds", type:"Pendant", price:22400, available:true, isNew:false},
+  {id:12, title:"Diamond-Set Love Bracelet", image:"de4.jpg", category:"Bracelets", metal:"Diamonds", type:"Rigid", price:19200, available:true, isNew:false},
+  {id:13, title:"Luna Pearl Earrings", image:"pe1.jpg", category:"Earrings", metal:"Pearls", type:"Drop", price:7200, available:true, isNew:false}
+
+];
+
+/* ====== RENDERING & FILTER LOGIC ====== */
+const gridEl = document.getElementById('grid');
+const countEl = document.getElementById('count');
+const searchBox = document.getElementById('searchBox');
+const modal = document.getElementById('modal');
+const modalImg = document.getElementById('modalImg');
+const modalTitle = document.getElementById('modalTitle');
+const modalPrice = document.getElementById('modalPrice');
+const modalMeta = document.getElementById('modalMeta');
+
+let state = {
+  view: 'grid', // grid/list
+  sort: 'recommended',
+  filters: {
+    available:false,
+    isNew:false,
+    categories: new Set(),
+    metals: new Set(),
+    types: new Set(),
+    text: ''
+  }
+};
+
+// helpers
+function formatPrice(n){ return '$' + n.toLocaleString(); }
+function applyFiltersAndRender(){
+  // filter
+  const s = state.filters;
+  let out = products.filter(p=>{
+    if(s.available && !p.available) return false;
+    if(s.isNew && !p.isNew) return false;
+    if(s.categories.size && !s.categories.has(p.category)) return false;
+    if(s.metals.size && !s.metals.has(p.metal)) return false;
+    if(s.types.size && p.type && !s.types.has(p.type)) return false;
+    if(s.text){
+      const t = s.text.toLowerCase();
+      if(!(p.title.toLowerCase().includes(t) || p.metal.toLowerCase().includes(t) || p.category.toLowerCase().includes(t))) return false;
+    }
+    return true;
+  });
+
+  // sort
+  if(state.sort === 'low') out.sort((a,b)=> a.price - b.price);
+  else if(state.sort === 'high') out.sort((a,b)=> b.price - a.price);
+  else out.sort((a,b)=> a.id - b.id); // recommended = insertion order
+
+  renderGrid(out);
+}
+
+function renderGrid(list){
+  gridEl.innerHTML = '';
+  countEl.textContent = list.length;
+  if(!list.length){
+    document.getElementById('emptyState').style.display = 'block';
+    return;
+  } else {
+    document.getElementById('emptyState').style.display = 'none';
+  }
+
+  list.forEach(p=>{
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div style="position:relative">
+        ${p.isNew ? '<div class="tag">NEW</div>' : ''}
+        <div class="media"><img loading="lazy" src="${p.image}" alt="${escapeHtml(p.title)}"></div>
+      </div>
+      <h3>${escapeHtml(p.title)}</h3>
+      <div class="subtitle">${escapeHtml(p.metal)}</div>
+      <div class="price">${formatPrice(p.price)}</div>
+    `;
+    // quick view on click
+    card.addEventListener('click', ()=>{
+      openModal(p);
+    });
+    gridEl.appendChild(card);
+  });
+}
+
+/* UI wiring */
+function escapeHtml(s){ return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;') }
+
+document.querySelectorAll('input[name="sort"]').forEach(r=>{
+  r.addEventListener('change', e=>{
+    state.sort = e.target.value;
+    applyFiltersAndRender();
+  });
+});
+document.querySelectorAll('.sidebar input[type="checkbox"]').forEach(cb=>{
+  cb.addEventListener('change', (e)=>{
+    const el = e.target;
+    // special data attributes
+    if(el.dataset.filter === 'available') state.filters.available = el.checked;
+    if(el.dataset.filter === 'new') state.filters.isNew = el.checked;
+    if(el.dataset.cat) {
+      if(el.checked) state.filters.categories.add(el.dataset.cat);
+      else state.filters.categories.delete(el.dataset.cat);
+    }
+    if(el.dataset.metal) {
+      if(el.checked) state.filters.metals.add(el.dataset.metal);
+      else state.filters.metals.delete(el.dataset.metal);
+    }
+    if(el.dataset.type) {
+      if(el.checked) state.filters.types.add(el.dataset.type);
+      else state.filters.types.delete(el.dataset.type);
+    }
+    // don't re-render on every box if you prefer "Apply" behavior; here we render live
+    applyFiltersAndRender();
+  });
+});
+
+searchBox.addEventListener('input', e=>{
+  state.filters.text = e.target.value.trim();
+  applyFiltersAndRender();
+});
+
+document.getElementById('resetBtn').addEventListener('click', ()=>{
+  // clear inputs
+  document.querySelectorAll('.sidebar input[type="checkbox"]').forEach(i=> i.checked = false);
+  document.querySelectorAll('input[name="sort"]').forEach(r=> r.checked = (r.value === 'recommended'));
+  state = {
+    ...state,
+    sort: 'recommended',
+    filters:{available:false,isNew:false,categories:new Set(),metals:new Set(),types:new Set(),text:''}
+  };
+  searchBox.value = '';
+  applyFiltersAndRender();
+});
+
+document.getElementById('applyBtn').addEventListener('click', (e)=>{
+  // apply uses current inputs (already applied live). We'll re-render.
+  applyFiltersAndRender();
+});
+
+document.getElementById('clearFilters').addEventListener('click', ()=>{
+  document.getElementById('resetBtn').click();
+});
+
+document.getElementById('toggleView').addEventListener('click', ()=>{
+  // simple toggle — flips to list later (not implemented fully as different layout),
+  // but we will toggle a class to allow potential CSS changes.
+  state.view = state.view === 'grid' ? 'list' : 'grid';
+  if(state.view === 'list'){
+    gridEl.style.gridTemplateColumns = '1fr';
+  } else {
+    gridEl.style.gridTemplateColumns = 'repeat(3,1fr)';
+  }
+});
+
+function openModal(product){
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  modalImg.src = product.image;
+  modalTitle.textContent = product.title;
+  modalMeta.textContent = `Category: ${product.category} • Metal: ${product.metal}`;
+  modalPrice.textContent = formatPrice(product.price);
+}
+function closeModal(){
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden','true');
+}
+
+/* wire hero-side static cards to open the modal using the products array */
+document.querySelectorAll('.card.hero-mini').forEach(el=>{
+  el.addEventListener('click', ()=>{
+    const id = Number(el.dataset.id);
+    const prod = products.find(p => p.id === id);
+    if(prod) openModal(prod);
+  });
+});
+
+document.getElementById('closeModal').addEventListener('click', closeModal);
+modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+
+/* initial render */
+applyFiltersAndRender();
+</script>
+</body>
+ <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                // Close mobile menu if open
+                const navMobile = document.getElementById('navMobile');
+                navMobile.classList.remove('active');
+            });
+        });
+
+        // Hamburger menu toggle for mobile
+        const hamburger = document.getElementById('hamburger');
+        const navMobile = document.getElementById('navMobile');
+        hamburger.addEventListener('click', () => {
+            navMobile.classList.toggle('active');
+        });
+
+        // Ensure video autoplays on load
+        window.addEventListener('load', function() {
+            const video = document.querySelector('video');
+            video.play().catch(e => console.log('Autoplay prevented:', e));
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
